@@ -27,14 +27,30 @@
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
 
-  var keywordArray = ['kappa','keepo','kappahd','pjsalt','salty','whysosalty'];
   var assocMap = [];
 
   assocMap["kappa"] = "<img src=\"img\/Kappa.png\"/>";
   assocMap["keepo"] = "<img src=\"img\/keepo.png\"/>";
   assocMap["kappahd"] = "<img src=\"img\/kappahd.png\"/>";
   assocMap["pjsalt"] = "<img src=\"img\/PJSalt.png\"/>";
-  
+  assocMap["ddface"] = "<img src=\"img\/ddface.png\"/>";
+  assocMap["catface"] = "<img src=\"img\/catman.png\"/>";
+  assocMap["creepface"] = "<img src=\"img\/creepface.png\"/>";
+  assocMap["justdontknowit"] = "<img src=\"img\/dontknowityet.png\"/>";
+  assocMap["fusionface"] = "<img src=\"img\/gavern.png\"/>";
+  assocMap["pelerham"] = "<img src=\"img\/pelerham.png\"/>";
+  assocMap["atleast5"] = "<img src=\"img\/atleast5.png\"/>";
+  assocMap["atleast1"] = "<img src=\"img\/wash.png\"/>";
+  assocMap["primerib"] = "<img src=\"img\/primerib.png\"/>";
+  assocMap["anhface"] = "<img src=\"img\/jackhughman.png\"/>";
+  assocMap["wrongcall"] = "<img src=\"img\/wrongcall.png\"/>";
+  assocMap["bobo"] = "<img src=\"img\/bobobo.png\"/>";
+  assocMap["dumaface"] = "<img src=\"img\/mackjon.png\"/>";
+
+
+
+
+
 
 
 	var socket = io();
@@ -81,26 +97,10 @@
 	});
 
 
-  function populateMap()
-  {
-    //
-    var assocMap = [];
-    assocMap["kappa"] = "<img src=\"img\/Kappa.png\"/> (Kappa)";
-    assocMap[""]
-
-    for(var i = 0 ; i < keywordArray.length; i++)
-    {
-
-
-
-
-    }
-
-  }
-
 
   function buildMsg(str)
   {
+    
     var msg ="<li>";
     var str_arr = str.split(" ");
 
