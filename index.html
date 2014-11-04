@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+
+
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+ 
+
+
+  <script src="http://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+
+  var keywordArray = ['kappa','keepo','kappahd','pjsalt','salty','whysosalty'];
+  var assocMap = [];
+
+  assocMap["kappa"] = "<img src=\"img\/Kappa.png\"/>";
+  assocMap["keepo"] = "<img src=\"img\/keepo.png\"/>";
+  assocMap["kappahd"] = "<img src=\"img\/kappahd.png\"/>";
+  assocMap["pjsalt"] = "<img src=\"img\/PJSalt.png\"/>";
+  
+
+
+	var socket = io();
+	$('form').submit(function(){
+		
+		socket.emit('chat message', $('#m').val());
+		$('#m').val('');
+		return false;
+
+	});
+	
+	socket.on('chat message', function(msg){	
+
+      //stringTokenizer(msg);
+
+      //USE A MAP TO MAP COMMANDS TO THESE ASSETS
+      //Store commands in a db table and populate an array, use that to map to commands.  
+
+      var msg_built = buildMsg(msg);
+      $('#messages').append(msg_built);
+      /**
+	   if(msg == "kappa")
+	   {
+        //$('#messages').append("<li><img src=\"img\/Kappa.png\"/> (Kappa)");
+        $('#messages').append(assocMap["kappa"]);
+
+	   }
+     else if(msg == "keepo")
+     {
+        $('#messages').append("<li><img src=\"img\/keepo.png\"/>");
+     }
+     else if(msg == "kappahd" || msg == "KappaHD")
+     {
+        $('#messages').append("<li><img src=\"img\/kappahd.png\"/>");
+     }
+     else if(msg == "PJSalt" || msg == "Salty" || msg == "whysosalty")
+     {
+        $('#messages').append("<li><img src=\"img\/PJSalt.png\"/>");
+     }
+	   else
+     {
+        $('#messages').append($('<li>').text(msg));
+	   }**/
+	});
+
+
+  function populateMap()
+  {
+    //
+    var assocMap = [];
+    assocMap["kappa"] = "<img src=\"img\/Kappa.png\"/> (Kappa)";
+    assocMap[""]
+
+    for(var i = 0 ; i < keywordArray.length; i++)
+    {
+
+
+
+
+    }
+
+  }
+
+
+  function buildMsg(str)
+  {
+    var msg ="<li>";
+    var str_arr = str.split(" ");
+
+    //make keywords ALL lower case when checking in assocMap
+    for(i = 0 ; i < str_arr.length; i++)
+    {
+          var key = str_arr[i].toLowerCase();
+
+          if(key in assocMap)
+          {
+            msg = msg + assocMap[key] + " " ; //KEY FOUND
+          }   
+          else
+          {
+            msg = msg + str_arr[i] + " ";     //KEY NOT FOUND
+          }
+
+    }
+
+    msg = msg + "</li>";
+    return msg;
+
+  }
+
+
+
+
+  function stringTokenizer(msg)
+  {
+    console.log(msg);
+    var arr = msg.split(" ");
+
+    for(i = 0; i <= arr.length; i++)
+    {
+        console.log(arr[i]);
+
+    }
+
+  }
+
+
+
+
+
+
+  </script>
+
+  </body>
+</html>
