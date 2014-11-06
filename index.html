@@ -1,24 +1,36 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>KappaChat</title>
+    <link rel="icon" type="image/png" href="img/kappa.png">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form { background: #eee; padding: 3px; margin-left:auto; margin-right:auto; width: 650px; }
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
+      form button { width: 9%; background: rgb(255,255,255); border: none; padding: 10px; font-family:'Open Sans', sans-serif; }
+      #messages { list-style-type: none; margin: 0; padding: 0; height:600px; overflow: scroll;}
+      #messages li { padding: 10px 15px; background-color:white; }
       #messages li:nth-child(odd) { background: #eee; }
+      #chatWindow {height:600px; background-color:#eeeeee; width:650px; margin-top:30px; margin-right:auto; margin-left:auto; border:1px solid #dddddd;   overflow:scroll; font-family:'Open Sans', sans-serif;}
+      #greentext{color:green;}
     </style>
   </head>
   <body>
 
+    <input type="text" placeholder="Username" id="current_user"/>
 
+    <!-- implement bootstrap, have stats on the right side flatui -->
+    <div id="chatWindow">
     <ul id="messages"></ul>
+    </div>
+
+
+
+
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" style="border:0px;"/><button>Send</button>
     </form>
  
 
@@ -46,18 +58,13 @@
   assocMap["wrongcall"] = "<img src=\"img\/wrongcall.png\"/>";
   assocMap["bobo"] = "<img src=\"img\/bobobo.png\"/>";
   assocMap["dumaface"] = "<img src=\"img\/mackjon.png\"/>";
-    assocMap["ayylmao"] = "<img src=\"img\/ayylmao.gif\"/>";
-
-
-
-
-
-
+  assocMap["ayylmao"] = "<img src=\"img\/ayylmao.gif\"/>";
+  assocMap["julieface"] = "<img src=\"img\/truliejan.png\"/>";
 
 
 	var socket = io();
 	$('form').submit(function(){
-		
+	
 		socket.emit('chat message', $('#m').val());
 		$('#m').val('');
 		return false;
@@ -66,36 +73,12 @@
 	
 	socket.on('chat message', function(msg){	
 
-      //stringTokenizer(msg);
-
       //USE A MAP TO MAP COMMANDS TO THESE ASSETS
       //Store commands in a db table and populate an array, use that to map to commands.  
 
       var msg_built = buildMsg(msg);
       $('#messages').append(msg_built);
-      /**
-	   if(msg == "kappa")
-	   {
-        //$('#messages').append("<li><img src=\"img\/Kappa.png\"/> (Kappa)");
-        $('#messages').append(assocMap["kappa"]);
 
-	   }
-     else if(msg == "keepo")
-     {
-        $('#messages').append("<li><img src=\"img\/keepo.png\"/>");
-     }
-     else if(msg == "kappahd" || msg == "KappaHD")
-     {
-        $('#messages').append("<li><img src=\"img\/kappahd.png\"/>");
-     }
-     else if(msg == "PJSalt" || msg == "Salty" || msg == "whysosalty")
-     {
-        $('#messages').append("<li><img src=\"img\/PJSalt.png\"/>");
-     }
-	   else
-     {
-        $('#messages').append($('<li>').text(msg));
-	   }**/
 	});
 
 
@@ -103,13 +86,16 @@
   function buildMsg(str)
   {
     
-    var msg ="<li>";
+    var msg ="<li tabindex=\"1\">"+$('#current_user').val() + ": " ;
     var str_arr = str.split(" ");
+
 
     //make keywords ALL lower case when checking in assocMap
     for(i = 0 ; i < str_arr.length; i++)
     {
           var key = str_arr[i].toLowerCase();
+
+
 
           if(key in assocMap)
           {
@@ -125,23 +111,19 @@
     msg = msg + "</li>";
     return msg;
 
-  }
+  }//$.cookie("var", "10");
 
 
+$('#current_user').keypress(function(e) {
+   
+
+    var username = $('#current_user').val();
+    $.cookie("username",username);
+    alert(username);
+
+});
 
 
-  function stringTokenizer(msg)
-  {
-    console.log(msg);
-    var arr = msg.split(" ");
-
-    for(i = 0; i <= arr.length; i++)
-    {
-        console.log(arr[i]);
-
-    }
-
-  }
 
 
 

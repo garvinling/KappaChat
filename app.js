@@ -52,7 +52,7 @@ io.on('connection', function(socket){
 
 
 //Development 
-http.listen(3000,function(){
+http.listen(process.env.PORT || 3000,function(){
 
 	console.log('Listening on *:3000');
 });
