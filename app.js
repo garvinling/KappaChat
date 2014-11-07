@@ -1,7 +1,7 @@
 var app = require('express')();
 var express = require('express');
 //var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(server);
 var fs = require('fs');
 
 
@@ -53,7 +53,7 @@ io.on('connection', function(socket){
 server.listen(port, function() {
 
   console.log('Listening on ' + port);
-  
+
 });
 
 
