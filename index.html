@@ -15,11 +15,16 @@
       #messages li:nth-child(odd) { background: #eee; }
       #chatWindow {height:600px; background-color:#eeeeee; width:650px; margin-top:30px; margin-right:auto; margin-left:auto; border:1px solid #dddddd;   overflow:scroll; font-family:'Open Sans', sans-serif;}
       #greentext{color:green;}
+      #join_form{background:#fff;}
     </style>
   </head>
   <body>
 
-    <input type="text" placeholder="Username" id="current_user"/>
+    <form class="form-inline" id="join_form">
+        <input type="text" class="input-small" placeholder="Your name" id="name">
+        <input type="button" name="join" id="join" value="Join" class="btn btn-primary">
+    </form>
+   
 
     <!-- implement bootstrap, have stats on the right side flatui -->
     <div id="chatWindow">
@@ -28,8 +33,7 @@
 
 
 
-
-    <form action="">
+    <form action="" id="chatForm">
       <input id="m" autocomplete="off" style="border:0px;"/><button>Send</button>
     </form>
  
@@ -38,6 +42,8 @@
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
+
+  hideAssets();
 
   var assocMap = [];
 
@@ -64,29 +70,45 @@
 
 	var socket = io();
 	$('form').submit(function(){
-	
-		socket.emit('chat message', $('#m').val());
-		$('#m').val('');
-		return false;
+
+    		socket.emit('chat message', $('#m').val());
+    		$('#m').val('');
+    		return false;
 
 	});
+
+
 	
-	socket.on('chat message', function(msg){	
+  socket.on('users_count',function(clients){
 
-      //USE A MAP TO MAP COMMANDS TO THESE ASSETS
-      //Store commands in a db table and populate an array, use that to map to commands.  
+     alert('Currently ' + clients + 'in the room');
 
-      var msg_built = buildMsg(msg);
+  });
+
+  /** Handle new user update from server **/ 
+  socket.on("update", function(msg){
+
+      $("#messages").append("<li style=\"color:gray;\">" + msg + "</li>");
+      showAssets();
+      hideJoin();
+
+  });
+
+
+  /** Handles the chat message returned from the server **/
+	socket.on('chat message', function(who,msg){	
+
+      var msg_built = buildMsg(who,msg);
       $('#messages').append(msg_built);
 
 	});
 
 
 
-  function buildMsg(str)
+  function buildMsg(who,str)
   {
     
-    var msg ="<li tabindex=\"1\">"+$('#current_user').val() + ": " ;
+    var msg ="<li tabindex=\"1\">"+who+": ";
     var str_arr = str.split(" ");
 
 
@@ -94,8 +116,6 @@
     for(i = 0 ; i < str_arr.length; i++)
     {
           var key = str_arr[i].toLowerCase();
-
-
 
           if(key in assocMap)
           {
@@ -107,30 +127,49 @@
           }
 
     }
-
     msg = msg + "</li>";
     return msg;
-
   }
 
-/**
-$('#current_user').keypress(function(e) {
-   
 
-    var username = $('#current_user').val();
-    $.cookie("username",username);
-    alert(username);
-
-});
-
-
-**/
-
-
+  $("#join").click(function(){
+      
+        var name = $("#name").val();
+        if (name != "") {
+              socket.emit("join", name);
+              $("#login").detach();
+              $("#chat").show();
+              $("#msg").focus();
+              ready = true;
+            }
+      });
 
 
 
-  </script>
+function hideAssets()
+{
+  $("#chatWindow").hide();
+  $("#chatForm").hide();
+}
+
+
+function showAssets()
+{
+  $("#chatWindow").fadeIn(2000);
+  $("#chatForm").fadeIn(2000);
+}
+
+
+function hideJoin()
+{
+  $("#join_form").fadeOut(1000);
+}
+
+</script>
+
+
+
+
 
   </body>
 </html>
