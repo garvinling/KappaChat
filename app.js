@@ -1,11 +1,10 @@
 var app = require('express')();
 var express = require('express');
-//var http = require('http').Server(app);
-var io = require('socket.io')(server);
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var fs = require('fs');
 
-
-var server = require('http').createServer(app);
+//var server = require('http').createServer(app);
 var port = process.env.PORT || 3000;
 
 app.use("/img", express.static(__dirname + '/img'));
@@ -50,16 +49,16 @@ io.on('connection', function(socket){
 
 
 
-server.listen(port, function() {
+http.listen(port, function() {
 
-  console.log('Listening on ' + port);
+   console.log('Listening on ' + port);
 
-});
+ });
 
 
 
-//Development 
-//http.listen(80,function(){
+// // Development 
+// http.listen(3000,function(){
 
-//	console.log('Listening on *:80');
-//});
+// 	console.log('Listening on *:80');
+// });
