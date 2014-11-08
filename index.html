@@ -112,7 +112,6 @@ $( document ).ready(function() {
 
   $("#join_form").submit(function(){
 
-
         var name = $("#name").val();
         setCookie("username",name,10);
         if (name != "") {
@@ -122,6 +121,7 @@ $( document ).ready(function() {
               $("#chat").show();
               $("#msg").focus();
               ready = true;
+              showChat();
             }   
     return false;
   }); 
