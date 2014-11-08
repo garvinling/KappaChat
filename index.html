@@ -91,10 +91,10 @@
 
 
 	$('#chatForm').submit(function(){
-
     		socket.emit('chat message', $('#m').val());
     		$('#m').val('');
-    		return false;
+
+        return false;
 
 	});
 
@@ -121,6 +121,9 @@
 
       var msg_built = buildMsg(who,msg);
       $('#messages').append(msg_built);
+      $('li').last().addClass('active-li').focus();
+      $('#m').focus();
+
 
 	});
 
@@ -152,6 +155,8 @@
     return msg;
   }
 
+
+
   $("#join_form").submit(function(){
         var name = $("#name").val();
         if (name != "") {
@@ -175,8 +180,8 @@ function hideAssets()
 
 function showAssets()
 {
-  $("#chatWindow").fadeIn(2000);
-  $("#chatForm").fadeIn(2000);
+  $("#chatWindow").fadeIn(4000);
+  $("#chatForm").fadeIn(4000);
 }
 
 
