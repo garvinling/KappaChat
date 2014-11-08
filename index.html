@@ -22,9 +22,12 @@
       #users_div{margin:20px; color:gray;}
       #users{list-style-type: none; font-family:'Open Sans', sans-serif;}
       h5{font-family:'Open Sans', sans-serif;}
+      #misc_info{font-family:'Open Sans', sans-serif; margin-top:20px; margin-left:10px;}
     </style>
   </head>
   <body>
+
+
 <!--
     <div id="users_div">
       <h5>Users</h5>
@@ -34,29 +37,35 @@
     </div> 
 -->
     <!-- ‎( ͡° ͜ʖ ͡°) -->
+  <div id="misc_info">
+    <input type="button" name="gtfoh" id="gtfoh" value="GTFOH" class="btn btn-primary"/>
+  </djv>
 
     <div id="chatWindow">
-    <ul id="messages"></ul>
-    </div>
-    <form action="" id="chatForm">
-      <input id="m" autocomplete="off" style="border:0px;"/><button>Send</button>
-    </form>
+          <ul id="messages"></ul>
+          </div>  
+        
+          <form action="" id="chatForm">
+            <input id="m" autocomplete="off" style="border:0px;"/><button>Send</button>
+          </form>
+ 
+          <div id="join_div">
+            <form class="form" id="join_form">
+                <input type="text" class="input-small" placeholder="Enter a Username" id="name"/>
+                <input type="submit" name="join" id="join" value="Join" class="btn btn-primary"/>
+            </form>
+        </div>
  
 
 
+<!--
+<script type='text/javascript'>
+ /** staging/production **/
+var s="!!!!=ejw!je>#dibuXjoepx#?!!!!=vm!je>#nfttbhft#?=0vm?!!!!=0ejw?!!!!=gpsn!bdujpo>##!je>#dibuGpsn#?!!!!!!=joqvu!je>#n#!bvupdpnqmfuf>#pgg#!tuzmf>#cpsefs;1qy<#0?=cvuupo?Tfoe=0cvuupo?!!!!=0gpsn?!!!!!=ejw!je>#kpjo`ejw#?!!!!=gpsn!dmbtt>#gpsn#!je>#kpjo`gpsn#?!!!!!!!!=joqvu!uzqf>#ufyu#!dmbtt>#joqvu.tnbmm#!qmbdfipmefs>#Foufs!b!Vtfsobnf#!je>#obnf#0?!!!!!!!!=joqvu!uzqf>#tvcnju#!obnf>#kpjo#!je>#kpjo#!wbmvf>#Kpjo#!dmbtt>#cuo!cuo.qsjnbsz#0?!!!!=0gpsn?!!=0ejw?";
+m=""; for (i=0; i<s.length; i++) {  if(s.charCodeAt(i) == 28){    m+= '&';} else if (s.charCodeAt(i) == 23) {   m+= '!';} else {    m+=String.fromCharCode(s.charCodeAt(i)-1);  }}document.write(m);//
+</script>
 
-    <div id="join_div">
-    <form class="form" id="join_form">
-        <input type="text" class="input-small" placeholder="Enter a Username" id="name"/>
-        <input type="submit" name="join" id="join" value="Join" class="btn btn-primary"/>
-    </form>
-  </div>
-
-
-
-
-
-
+-->
 
 
 
@@ -110,6 +119,14 @@ $( document ).ready(function() {
         return false;
 
 	});
+
+
+  $('#gtfoh').click(function(){
+
+      showJoin();
+      eraseCookie("username");
+
+  });
 
   $("#join_form").submit(function(){
 
@@ -228,6 +245,12 @@ function checkCookie(socket) {
     }
 }
 
+function eraseCookie(name) {
+  
+  document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+}
+
 
 
 
@@ -235,7 +258,7 @@ function showJoin()
 {
   $("#chatWindow").hide();
   $("#chatForm").hide();
-
+  $("#gtfoh").hide();
   $("#join_form").fadeIn(1);
 
 }
@@ -245,7 +268,7 @@ function showChat()
 {
   $("#chatWindow").fadeIn(2000);
   $("#chatForm").fadeIn(2000);
-
+  $("#gtfoh").fadeIn(1000);
   $("#join_form").hide();
 }
 
