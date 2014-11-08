@@ -14,7 +14,7 @@
       #messages { list-style-type: none; margin: 0; padding: 0; height:600px; overflow: scroll;}
       #messages li { padding: 10px 15px; background-color:white; }
       #messages li:nth-child(odd) { background: #eee; }
-      #chatWindow {height:600px; background-color:#eeeeee; width:650px; margin-top:-100px; margin-right:auto; margin-left:auto; border:1px solid #dddddd;   overflow:scroll; font-family:'Open Sans', sans-serif;}
+      #chatWindow {height:600px; background-color:#eeeeee; width:650px; margin-top:20px; margin-right:auto; margin-left:auto; border:1px solid #dddddd;   overflow:scroll; font-family:'Open Sans', sans-serif;}
       #greentext{color:green;}
       #join_form{background:#fff; width:200px;}
       #join_div{width:200px; margin-left:auto; margin-right:auto;margin-top:20%;}
@@ -23,15 +23,9 @@
   </head>
   <body>
 
-    
-    <div id="join_div">
-    <form class="form" id="join_form">
-        <input type="text" class="input-small" placeholder="Enter a Username" id="name"/>
-        <input type="submit" name="join" id="join" value="Join" class="btn btn-primary"/>
-    </form>
-  </div>
+ 
 
-    <!-- implement bootstrap, have stats on the right side flatui -->
+    <!-- ‎( ͡° ͜ʖ ͡°) -->
 
     <div id="chatWindow">
     <ul id="messages"></ul>
@@ -41,6 +35,28 @@
     </form>
  
 
+
+
+    <div id="join_div">
+    <form class="form" id="join_form">
+        <input type="text" class="input-small" placeholder="Enter a Username" id="name"/>
+        <input type="submit" name="join" id="join" value="Join" class="btn btn-primary"/>
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- JS ‎( ͡° ͜ʖ ͡°)-->
 
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
