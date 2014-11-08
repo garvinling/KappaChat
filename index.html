@@ -167,7 +167,7 @@ $( document ).ready(function() {
 
       var msg_built = buildMsg(who,msg);
       $('#messages').append(msg_built);
-      $('li').last().addClass('active-li').focus();
+      $('li').last().hide().fadeIn(530).addClass('active-li').focus();
       $('#m').focus();
       getCookie("username");
       checkCookie();
