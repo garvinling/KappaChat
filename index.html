@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>KappaChat</title>
-    <link rel="icon" type="image/png" href="img/kappa.png">
+    <link rel="icon" type="image/png" href="/img/kappa.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <style>
@@ -112,13 +112,13 @@ $( document ).ready(function() {
 
 
 
-
 	$('#chatForm').submit(function(){
-    		socket.emit('chat message', $('#m').val());
+    		
+        socket.emit('chat message', $('#m').val());
     		$('#m').val('');
         return false;
-
-	});
+	
+  });
 
 
   $('#gtfoh').click(function(){
@@ -172,6 +172,7 @@ $( document ).ready(function() {
       $('#m').focus();
       getCookie("username");
       checkCookie();
+
 
 
 	});
@@ -252,6 +253,17 @@ function eraseCookie(name) {
 
 }
 
+function flashTitle(pageTitle, newMessageTitle)
+{
+    if (document.title == pageTitle)
+    {
+        document.title = newMessageTitle;
+    }
+    else
+    {
+        document.title = pageTitle;
+    }
+}
 
 
 
