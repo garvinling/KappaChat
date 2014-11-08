@@ -37,7 +37,11 @@ io.on('connection', function(socket){
 	socket.on('disconnect',function(){	
 		
 		console.log('User Has Disconnected: ');
-		io.emit("update",people[socket.id] + " has left the chat.");
+
+		if(people[socket.id] != "undefined")
+		{
+			io.emit("update",people[socket.id] + " has left the chat.");
+		}
 	
 	});
 	
