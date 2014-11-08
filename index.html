@@ -19,12 +19,20 @@
       #join_form{background:#fff; width:200px;}
       #join_div{width:200px; margin-left:auto; margin-right:auto;margin-top:20%;}
       #name{ font-family:'Open Sans', sans-serif; text-align:center;}
+      #users_div{margin:20px; color:gray;}
+      #users{list-style-type: none; font-family:'Open Sans', sans-serif;}
+      h5{font-family:'Open Sans', sans-serif;}
     </style>
   </head>
   <body>
+<!--
+    <div id="users_div">
+      <h5>Users</h5>
+      <ul id="users">
 
- 
-
+      </ul>
+    </div> 
+-->
     <!-- ‎( ͡° ͜ʖ ͡°) -->
 
     <div id="chatWindow">
@@ -60,11 +68,17 @@
 
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+
   <script>
+$( document ).ready(function() {
 
-  hideAssets();
-
+  var socket = io();
   var assocMap = [];
+
+
+  checkCookie(socket);
+
 
   assocMap["kappa"] = "<img src=\"img\/Kappa.png\"/>";
   assocMap["keepo"] = "<img src=\"img\/keepo.png\"/>";
@@ -87,16 +101,30 @@
   assocMap["julieface"] = "<img src=\"img\/truliejan.png\"/>";
 
 
-	var socket = io();
 
 
 	$('#chatForm').submit(function(){
     		socket.emit('chat message', $('#m').val());
     		$('#m').val('');
-
         return false;
 
 	});
+
+  $("#join_form").submit(function(){
+
+
+        var name = $("#name").val();
+        setCookie("username",name,10);
+        if (name != "") {
+
+              socket.emit("join", name);
+              $("#login").detach();
+              $("#chat").show();
+              $("#msg").focus();
+              ready = true;
+            }   
+    return false;
+  }); 
 
 
 	
@@ -107,11 +135,11 @@
   });
 
   /** Handle new user update from server **/ 
-  socket.on("update", function(msg){
+  socket.on("update", function(who, msg){
 
-      $("#messages").append("<li style=\"color:gray;\">" + msg + "</li>");
-      showAssets();
-      hideJoin();
+      $("#messages").append("<li style=\"color:gray;\">" + who + " " + msg + "</li>");
+      $("#users").append("<li>" + who + "</li>");
+      showChat();
 
   });
 
@@ -123,6 +151,8 @@
       $('#messages').append(msg_built);
       $('li').last().addClass('active-li').focus();
       $('#m').focus();
+      getCookie("username");
+      checkCookie();
 
 
 	});
@@ -149,39 +179,73 @@
           {
             msg = msg + str_arr[i] + " ";     //KEY NOT FOUND
           }
-
     }
     msg = msg + "</li>";
     return msg;
   }
 
 
-
-  $("#join_form").submit(function(){
-        var name = $("#name").val();
-        if (name != "") {
-
-              socket.emit("join", name);
-              $("#login").detach();
-              $("#chat").show();
-              $("#msg").focus();
-              ready = true;
-            }   
-    return false;
-  }); 
-
-
-function hideAssets()
+function setCookie(cname,cvalue,exdays)
 {
-  $("#chatWindow").hide();
-  $("#chatForm").hide();
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname+"="+cvalue+"; "+expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) != -1) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 
-function showAssets()
+function checkCookie(socket) {
+    
+
+    var user=getCookie("username");     //Check for existing user cookie. 
+
+    if (user != "") 
+    {
+        socket.emit("join", user);   
+        console.log("Cookie found");  
+        showChat();
+
+    } 
+    else 
+    {  
+        console.log("Cookie not found");
+        showJoin();
+
+    }
+}
+
+
+
+
+function showJoin()
 {
-  $("#chatWindow").fadeIn(4000);
-  $("#chatForm").fadeIn(4000);
+  $("#chatWindow").hide();
+  $("#chatForm").hide();
+
+  $("#join_form").fadeIn(1);
+
+}
+
+
+function showChat()
+{
+  $("#chatWindow").fadeIn(2000);
+  $("#chatForm").fadeIn(2000);
+
+  $("#join_form").hide();
 }
 
 
@@ -189,6 +253,9 @@ function hideJoin()
 {
   $("#join_form").fadeOut(1000);
 }
+
+
+});
 
 </script>
 

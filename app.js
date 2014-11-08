@@ -23,7 +23,7 @@ io.on('connection', function(socket){
 
 		people[socket.id] = name;
 		console.log(people[socket.id] + " has joined the chat.");
-		io.emit("update", people[socket.id] + " has joined the chat."); //Broadcast join message across all sockets. 
+		//io.emit("update", people[socket.id] ," has joined the chat."); //Broadcast join message across all sockets. 
 
 	});
 	
@@ -40,7 +40,7 @@ io.on('connection', function(socket){
 
 		if(people[socket.id] != "undefined")
 		{
-			io.emit("update",people[socket.id] + " has left the chat.");
+			//io.emit("update",people[socket.id] + " has left the chat.");
 		}
 	
 	});
