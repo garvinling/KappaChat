@@ -44,15 +44,10 @@ io.on('connection', function(socket){
 	socket.on('disconnect',function(){	
 		
 		console.log('User Has Disconnected.');
-		printUsers();
-
+		console.log("Deleting " + people[socket.id]);
 		delete people[socket.id];
 		delete users[socket.id];
-
-		if(people[socket.id] != "undefined")
-		{
-			//io.emit("update",people[socket.id] + " has left the chat.");
-		}
+		io.emit('addUser',people); //update the list
 	
 	});
 	
