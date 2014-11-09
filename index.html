@@ -14,7 +14,7 @@
       #messages { list-style-type: none; margin: 0; padding: 0; height:600px; overflow: scroll;}
       #messages li { padding: 10px 15px; background-color:white; }
       #messages li:nth-child(odd) { background: #eee; }
-      #chatWindow {height:600px; background-color:#eeeeee; width:650px; margin-top:20px; margin-right:auto; margin-left:auto; border:1px solid #dddddd;  font-family:'Open Sans', sans-serif; margin-bottom:0px;}
+      #chatWindow {height:600px; background-color:#eeeeee; width:650px; margin-top:-40px; margin-right:auto; margin-left:auto; border:1px solid #dddddd;  font-family:'Open Sans', sans-serif; margin-bottom:0px;}
       #greentext{color:green;}
       #join_form{background:#fff; width:200px;}
       #join_div{width:200px; margin-left:auto; margin-right:auto;margin-top:20%;}
@@ -39,9 +39,13 @@
     <!-- ‎( ͡° ͜ʖ ͡°) -->
   <div id="misc_info">
     <input type="button" name="gtfoh" id="gtfoh" value="GTFOH" class="btn btn-primary"/>
+    <h4>Users</h4>
+    <ul id="user_list">
+    </ul>
   </djv>
 
-    <div id="chatWindow">
+
+    <div  id="chatWindow">
           <ul id="messages"></ul>
           </div>  
         
@@ -54,9 +58,11 @@
                 <input type="text" class="input-small" placeholder="Enter a Username" id="name"/>
                 <input type="submit" name="join" id="join" value="Join" class="btn btn-primary"/>
             </form>
-        </div>
- 
+     </div>
 
+
+ 
+ 
 
 <!--
 <script type='text/javascript'>
@@ -104,7 +110,7 @@ $( document ).ready(function() {
   assocMap["primerib"] = "<img src=\"img\/primerib.png\"/>";
   assocMap["anhface"] = "<img src=\"img\/jackhughman.png\"/>";
   assocMap["wrongcall"] = "<img src=\"img\/wrongcall.png\"/>";
-  assocMap["bobo"] = "<img src=\"img\/bobobo.png\"/>";
+  assocMap["bobo"] =      "<img src=\"img\/bobobo.png\"/>";
   assocMap["dumaface"] = "<img src=\"img\/mackjon.png\"/>";
   assocMap["ayylmao"] = "<img src=\"img\/ayylmao.gif\"/>";
   assocMap["julieface"] = "<img src=\"img\/truliejan.png\"/>";
@@ -176,6 +182,20 @@ $( document ).ready(function() {
 
 
 	});
+
+
+  socket.on('addUser',function(who){
+    
+    $("#user_list").empty();
+
+    for(var index in who)
+    {
+      $("#user_list").append("<li>"+who[index]+"</li>");
+    }
+
+
+
+  });
 
 
 
