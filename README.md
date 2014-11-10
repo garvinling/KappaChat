@@ -1,7 +1,7 @@
 KappaChat
 =========
 
-GrayChat (No Space)
+GreyChat (No Space)
 
 
 
