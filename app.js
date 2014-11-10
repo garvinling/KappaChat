@@ -66,13 +66,13 @@ function printUsers()
 
 	for(var index in people)
 	{
-
 		user_string = user_string + "<li>" + people[index] + "</li>";
-	
 	}
 	
 	io.emit('addUser',user_string);
 }
+
+
 
 http.listen(port, function() {
 
